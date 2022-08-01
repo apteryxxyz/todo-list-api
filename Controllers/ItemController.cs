@@ -27,7 +27,7 @@ public class ItemController : Controller
     /// <param name="key">API key.</param>
     /// <returns>Array of items.</returns>
     [HttpGet]
-    [Route("{ListId}/items")]
+    [Route("{listId}/items")]
     public async Task<ActionResult<IEnumerable<TodoItemOutgoing>>> GetItems(string listId, string key)
     {
         // FInd todo list by ID
@@ -50,7 +50,7 @@ public class ItemController : Controller
     /// <param name="content">Item content.</param>
     /// <returns>New item object.</returns>
     [HttpPut]
-    [Route("{ListId}/items")]
+    [Route("{listId}/items")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<TodoItemOutgoing>> CreateItem(string listId, string key, string content)
     {
@@ -86,7 +86,7 @@ public class ItemController : Controller
     /// <param name="key">API Key.</param>
     /// <returns>Item object.</returns>
     [HttpGet]
-    [Route("{ListId}/items/{ItemId}")]
+    [Route("{listId}/items/{itemId}")]
     public async Task<ActionResult<TodoItemOutgoing>> GetItem(string listId, string itemId, string key)
     {
         // Find todo list by ID
@@ -113,7 +113,7 @@ public class ItemController : Controller
     /// <param name="data">New object data.</param>
     /// <returns></returns>
     [HttpPatch]
-    [Route("{ListId}/items/{ItemId}")]
+    [Route("{listId}/items/{itemId}")]
     public async Task<ActionResult<TodoItemOutgoing>> UpdateItem(string listId, string itemId, string key, [FromBody] TodoItemIncoming data)
     {
         // Find todo list by ID
@@ -143,7 +143,7 @@ public class ItemController : Controller
     /// <param name="key">API Key.</param>
     /// <returns>OK.</returns>
     [HttpDelete]
-    [Route("{ListId}/items/{ItemId}")]
+    [Route("{listId}/items/{itemId}")]
     public async Task<IActionResult> DeleteItem(string listId, string itemId, string key)
     {
         // Find todo list by ID

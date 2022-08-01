@@ -54,7 +54,7 @@ public class ListController : Controller
     /// <param name="key">API Key.</param>
     /// <returns>A todo list object WITHOUT its API key.</returns>
     [HttpGet]
-    [Route("{ListId}")]
+    [Route("{listId}")]
     public async Task<ActionResult<TodoListOutgoing>> GetList(string listId, string key)
     {
         // FInd todo list by ID
@@ -75,7 +75,7 @@ public class ListController : Controller
     /// <param name="data">New data object.</param>
     /// <returns>The updated todo list object.</returns>
     [HttpPatch]
-    [Route("{ListId}")]
+    [Route("{listId}")]
     public async Task<ActionResult<TodoListOutgoing>> UpdateList(string listId, string key, [FromBody] TodoListIncoming data)
     {
         // Find todo list by ID
@@ -100,7 +100,7 @@ public class ListController : Controller
     /// <param name="key">API Key.</param>
     /// <returns>OK.</returns>
     [HttpDelete]
-    [Route("{ListId}")]
+    [Route("{listId}")]
     public async Task<IActionResult> DeleteList(string listId, string key)
     {
         // FInd todo list by ID
