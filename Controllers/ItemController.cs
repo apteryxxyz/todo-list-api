@@ -47,7 +47,7 @@ public class ItemController : Controller
     /// </summary>
     /// <param name="listId">List ID.</param>
     /// <param name="key">API key.</param>
-    /// <param name="content">Item content.</param>
+    /// <param name="data">Item data.</param>
     /// <returns>New item object.</returns>
     [HttpPut]
     [Route("{listId}/items")]
@@ -115,8 +115,8 @@ public class ItemController : Controller
     /// <param name="listId">List ID.</param>
     /// <param name="itemId">Item ID.</param>
     /// <param name="key">API Key.</param>
-    /// <param name="data">New object data.</param>
-    /// <returns></returns>
+    /// <param name="data">New item data.</param>
+    /// <returns>Item object.</returns>
     [HttpPatch]
     [Route("{listId}/items/{itemId}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
