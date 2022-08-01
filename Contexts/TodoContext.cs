@@ -76,7 +76,8 @@ public class TodoItemOutgoing
     public TodoItemOutgoing(TodoItem? item)
     {
         if (item == null) return;
-        
+
+        Id = item.Id;
         ListId = item.ListId;
         Content = item.Content;
         IsComplete = item.IsComplete;
