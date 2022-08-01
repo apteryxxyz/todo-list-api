@@ -75,7 +75,12 @@ public class ItemController : Controller
         _context.Items.Add(item);
         await _context.SaveChangesAsync();
 
-        return new TodoItemOutgoing(item);
+        return CreatedAtAction
+            (
+                nameof(GetItem),
+                new { listId = listId, itemId = itemId, key = key },
+                new TodoItemOutgoing(item)
+            );
     }
 
     /// <summary>
@@ -114,6 +119,7 @@ public class ItemController : Controller
     /// <returns></returns>
     [HttpPatch]
     [Route("{listId}/items/{itemId}")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<TodoItemOutgoing>> UpdateItem(string listId, string itemId, string key, [FromBody] TodoItemIncoming data)
     {
         // Find todo list by ID

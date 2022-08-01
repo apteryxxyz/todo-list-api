@@ -90,7 +90,7 @@ public class ListController : Controller
         await _context.SaveChangesAsync();
 
         // Return object
-        return new TodoListOutgoing(list, false);
+        return new TodoListOutgoing(list, true);
     }
 
     /// <summary>
