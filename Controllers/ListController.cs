@@ -42,7 +42,7 @@ public class ListController : Controller
         return CreatedAtAction
             (
                 nameof(GetList),
-                new { id = id, key = key },
+                new { listId = id, key = key },
                 new TodoListOutgoing(list, true)
             );
     }
@@ -100,7 +100,7 @@ public class ListController : Controller
     /// <param name="key">API Key.</param>
     /// <returns>OK.</returns>
     [HttpDelete]
-    [Route("{ItemId}")]
+    [Route("{ListId}")]
     public async Task<IActionResult> DeleteList(string listId, string key)
     {
         // FInd todo list by ID
