@@ -20,6 +20,12 @@ public class ItemController : Controller
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Get the items in a list.
+    /// </summary>
+    /// <param name="listId">List ID.</param>
+    /// <param name="key">API key.</param>
+    /// <returns>Array of items.</returns>
     [HttpGet]
     [Route("{ListId}/items")]
     public async Task<ActionResult<IEnumerable<TodoItemOutgoing>>> GetItems(string listId, string key)
@@ -36,6 +42,13 @@ public class ItemController : Controller
         return items.Select(i => new TodoItemOutgoing(i)).ToList();
     }
 
+    /// <summary>
+    /// Add a new item to the a list.
+    /// </summary>
+    /// <param name="listId">List ID.</param>
+    /// <param name="key">API key.</param>
+    /// <param name="content">Item content.</param>
+    /// <returns>New item object.</returns>
     [HttpPut]
     [Route("{ListId}/items")]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -49,12 +62,12 @@ public class ItemController : Controller
         if (list.Key != key) return Unauthorized();
 
         // Generate random string to use as ID
-        var id = Guid.NewGuid().ToString("N");
+        var itemId = Guid.NewGuid().ToString("N");
 
         // Create new item
         var item = new TodoItem
         {
-            Id = id,
+            Id = itemId,
             ListId = listId,
             Content = content,
             IsComplete = false
@@ -65,6 +78,13 @@ public class ItemController : Controller
         return new TodoItemOutgoing(item);
     }
 
+    /// <summary>
+    /// Get an item from a list.
+    /// </summary>
+    /// <param name="listId">List ID.</param>
+    /// <param name="itemId">Item ID.</param>
+    /// <param name="key">API Key.</param>
+    /// <returns>Item object.</returns>
     [HttpGet]
     [Route("{ListId}/items/{ItemId}")]
     public async Task<ActionResult<TodoItemOutgoing>> GetItem(string listId, string itemId, string key)
@@ -84,6 +104,14 @@ public class ItemController : Controller
         return new TodoItemOutgoing(item);
     }
 
+    /// <summary>
+    /// Update an item in a list.
+    /// </summary>
+    /// <param name="listId">List ID.</param>
+    /// <param name="itemId">Item ID.</param>
+    /// <param name="key">API Key.</param>
+    /// <param name="data">New object data.</param>
+    /// <returns></returns>
     [HttpPatch]
     [Route("{ListId}/items/{ItemId}")]
     public async Task<ActionResult<TodoItemOutgoing>> UpdateItem(string listId, string itemId, string key, [FromBody] TodoItemIncoming data)
@@ -107,9 +135,16 @@ public class ItemController : Controller
         return new TodoItemOutgoing(item);
     }
 
+    /// <summary>
+    /// Delete an item from a list.
+    /// </summary>
+    /// <param name="listId">List ID.</param>
+    /// <param name="itemId">Item ID.</param>
+    /// <param name="key">API Key.</param>
+    /// <returns>OK.</returns>
     [HttpDelete]
     [Route("{ListId}/items/{ItemId}")]
-    public async Task<ActionResult<TodoItemOutgoing>> DeleteItem(string listId, string itemId, string key)
+    public async Task<IActionResult> DeleteItem(string listId, string itemId, string key)
     {
         // Find todo list by ID
         var list = await _context.Lists.FirstOrDefaultAsync(l => l.Id == listId);
@@ -126,6 +161,6 @@ public class ItemController : Controller
         _context.Items.Remove(item);
         await _context.SaveChangesAsync();
 
-        return new TodoItemOutgoing(item);
+        return Ok();
     }
 }
