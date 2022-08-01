@@ -52,7 +52,7 @@ public class ItemController : Controller
     [HttpPut]
     [Route("{listId}/items")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<TodoItemOutgoing>> CreateItem(string listId, string key, string content)
+    public async Task<ActionResult<TodoItemOutgoing>> CreateItem(string listId, string key, [FromBody] TodoItemIncoming data)
     {
         // Find todo list by ID
         var list = await _context.Lists.FirstOrDefaultAsync(l => l.Id == listId);
@@ -69,8 +69,8 @@ public class ItemController : Controller
         {
             Id = itemId,
             ListId = listId,
-            Content = content,
-            IsComplete = false
+            Content = data.Content,
+            IsComplete = data.IsComplete
         };
         _context.Items.Add(item);
         await _context.SaveChangesAsync();
