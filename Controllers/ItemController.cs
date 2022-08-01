@@ -119,7 +119,6 @@ public class ItemController : Controller
     /// <returns>Item object.</returns>
     [HttpPatch]
     [Route("{listId}/items/{itemId}")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<TodoItemOutgoing>> UpdateItem(string listId, string itemId, string key, [FromBody] TodoItemIncoming data)
     {
         // Find todo list by ID
